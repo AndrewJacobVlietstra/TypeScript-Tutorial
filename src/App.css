@@ -5,7 +5,7 @@ body {
   font-size: 1.4rem;
 }
 
-.app-container {
+.app-title {
   text-align: center;
 }
 
@@ -29,13 +29,27 @@ body {
 .submit-button {
   margin-top: .2rem;
   cursor: pointer;
-  background-color: #111;
+  background-color: #444;
   color: #fff;
   border: none;
   border: 1px solid #f4f4f4;
   border-radius: 4px;
+  transition: all .25s ease;
+}
+.submit-button:hover {
+  background-color: #222;
+}
+.submit-button:active {
+  background-color: #000;
 }
 
 .todoList {
-  background-color: #111;
+  background-color: #1b1b1b;
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 2rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
