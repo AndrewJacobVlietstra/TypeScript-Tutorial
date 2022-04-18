@@ -1,4 +1,4 @@
 export default interface ITodo {
-  task: string,
+  taskName: string,
   deadline: number
 };

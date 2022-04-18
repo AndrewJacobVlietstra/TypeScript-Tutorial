@@ -1,12 +1,12 @@
 import './App.css';
 import { ChangeEvent, useState } from 'react';
 import ITodo from './Interfaces/Todo.interface';
-import { ArrowFunction } from 'typescript';
+import TodoTask from './Components/TodoTask/TodoTask';
 
 
 const App: React.FC = () => {
   const [task, setTask] = useState<string>("");
-  const [deadline, setDeadline] = useState<number>(0);
+  const [deadline, setDeadline] = useState<number>(1);
   const [todos, setTodos] = useState<ITodo[]>([]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -21,13 +21,17 @@ const App: React.FC = () => {
   };
 
   const addTask = (): void => {
-    const newTask = { task, deadline };
+    const newTask = { taskName: task, deadline };
     if (task === '' || deadline <= 0) { return; }
 
     setTodos([...todos, newTask]);
 
     setTask("");
-    setDeadline(0);
+    setDeadline(1);
+  };
+
+  const completeTask = (taskNameToDelete: string): void => {
+    setTodos(todos.filter(todo => todo.taskName !== taskNameToDelete));
   };
 
   return(
@@ -43,7 +47,7 @@ const App: React.FC = () => {
       </div>
 
       <div className='todoList'>
-        <pre>{JSON.stringify(todos, undefined, 2)}</pre>
+        {todos.map((todo: ITodo, key: number) => <TodoTask todo={todo} key={key} completeTask={completeTask} />)}
       </div>
     </div>
   )
