@@ -1,45 +1,38 @@
-import React, { useState } from 'react';
 import './App.css';
+import { ChangeEvent, useState } from 'react';
 
 
-function App() {
-  const [todos, setTodos] = useState([{}]);
+const App: React.FC = () => {
+  const [task, setTask] = useState<string>("");
+  const [deadline, setDeadline] = useState<number>(0);
+  const [todos, setTodos] = useState([]);
 
-  const [formData, setFormData] = useState({
-    title: "",
-    note: "",
-    time: 0,
-    completed: false,
-  });
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
 
-  const handleFormDataChange = (e: React.FormEvent<HTMLInputElement>) => {
-    const { id, value } = e.currentTarget;
+    if (name === 'task') {
+      setTask(value);
+    }
+    if (name === 'deadline') {
+      setDeadline(Number(value));
+    }
+  };
 
-    return setFormData({ ...formData, [id] : value });
-  }
+  return(
+    <div className='app-container'>
+      <h2 className='app-title'>TypeScript Todo App</h2>
 
-  const handleFormSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+      <div className='header'>
+        <div className='input-container'>
+          <input type="text" name='task' placeholder='Task...' onChange={handleChange} />
+          <input type="number" name='deadline' placeholder='Deadline (Days)' onChange={handleChange} />
+          <button className='submit-button'>Add Task</button>
+        </div>
+      </div>
 
-    // return setTodos(...todos, {...formData, id: Math.random()});
-  }
-
-  return (
-    <div className="App">
-      <h1>TypeScript React Todo List</h1>
-      <pre>{JSON.stringify(todos)}</pre>
-      
-      <form className='app-form' onSubmit={handleFormSubmit}>
-        <label>Todo Title:</label>
-        <input name='title' id='title' type='text' placeholder='Title' value={formData.title} onChange={handleFormDataChange} />
-        <label>Todo Note:</label>
-        <input name='note' id='note' type='text' placeholder='Note' value={formData.note} onChange={handleFormDataChange} />
-        <label>Todo Time (Days):</label>
-        <input name='time' id='time' type='number' value={formData.time} onChange={handleFormDataChange} />
-        <button className='form-button' formAction='submit'>Submit Todo</button>
-      </form>
+      <div className='todoList'></div>
     </div>
-  );
+  )
 }
 
 export default App;
