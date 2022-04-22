@@ -2,7 +2,7 @@ import ITask from '../../Interfaces/Todo.interface';
 
 interface Props {
   todo: ITask,
-  completeTask(taskNameToDelete: string): void,
+  completeTask: (taskNameToDelete: string) => void,
 };
 
 const TodoTask = ({ todo, completeTask }: Props) => {
